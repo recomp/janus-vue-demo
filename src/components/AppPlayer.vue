@@ -1,5 +1,5 @@
 <template>
-  <div class="player" :style="videoStyle">
+  <div class="player">
     <video
       width="100%"
       id="rtsp_player"
@@ -28,9 +28,6 @@ export default {
     isLoading: false,
     janusServerUrl: 'camproxy.ru',
     player: null,
-    videoStyle: {
-      height: 0
-    },
     paused: false,
     streaming: null,
     janus: null,
@@ -197,7 +194,6 @@ export default {
       let data = { "request": "watch", mrl: this.rtspSrc };
       this.streaming.send({"message": data});
       this.$store.commit('SET_RTSP_SERVER_LIST', this.rtspSrc)
-      this.setVideoStyle()
     },
     stopStream() {
       this.isPlaying = false
