@@ -150,6 +150,7 @@ export default {
     justify-content: center
   }
   .player{
+    margin-top: 30px;
     position: relative;
     padding-bottom: 56.25%; /* 16:9 */
     padding-top: 25px;
