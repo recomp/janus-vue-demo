@@ -208,6 +208,14 @@ export default {
     error(message, error = false) {
       Janus.error(message, error);
       this.console = {message: `${message}... ${error ? JSON.stringify(error) : ''}`, type: 'error'}
+      this.$buefy.dialog.alert({
+        title: 'Error',
+        message: `${message}... ${error ? JSON.stringify(error) : ''}`,
+        type: 'is-danger',
+        hasIcon: true,
+        icon: 'times-circle',
+        iconPack: 'fa'
+      })
     },
     log(message) {
       Janus.log(message);
