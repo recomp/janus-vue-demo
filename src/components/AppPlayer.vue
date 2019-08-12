@@ -1,9 +1,7 @@
 <template>
   <div class="player">
     <video
-      width="100%"
       id="rtsp_player"
-      height="auto"
       class="has-text-centered"
       ref="rtspPlayer"
       autoplay />
