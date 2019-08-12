@@ -7,6 +7,10 @@
             ref="player"
             :class="{'is-playing' : isPlaying}"
             :rtspSrc="rtspSrc"/>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="column is-half">
           <form>
             <b-field>
               <b-autocomplete
@@ -30,10 +34,8 @@
               </p>
             </b-field>
           </form>
-
         </div>
       </div>
-
 
       <div
         v-if="$route.query.debug"
@@ -93,7 +95,7 @@ export default {
     selected: null
   }),
   watch:{
-    console(val){
+    console(){
       this.$refs.consolePanel.scrollTop = this.$refs.consolePanel.scrollHeight
     }
   },
@@ -142,19 +144,37 @@ export default {
 <style lang="scss">
   @import "bulma/sass/utilities/initial-variables.sass";
   @import "bulma/sass/utilities/derived-variables.sass";
+
+
   .columns{
     justify-content: center
   }
   .player{
     display: flex;
     width: 100%;
-    height: auto;
-    min-height: 420px;
-    background: gray;
+    height: 100%;
+    min-height: 350px;
+    background: #000;
     padding: 0;
     margin: 0;
-    &.is-playing {
-      background: transparent;
+    position: relative;
+    &:before {
+      content:'';
+      display: block;
+      padding-top: 50%;
+    }
+    video {
+      bottom: 0;
+      left: -1px;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 100%;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      min-height: inherit;
+      max-height: 100%;
     }
   }
   .player-url{

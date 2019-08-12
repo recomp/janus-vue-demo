@@ -200,7 +200,6 @@ export default {
       this.setVideoStyle()
     },
     stopStream() {
-      console.log('STOPSTREAM()');
       this.isPlaying = false
       this.streaming.send({"message": { "request": "stop" } });
       this.streaming.hangup();
@@ -228,11 +227,6 @@ export default {
       Janus.debug(message);
       this.console = {message: message, type: 'debug'}
     },
-    setVideoStyle(){
-      let vm = this
-      let height = this.$refs.rtspPlayer.videoHeight
-      let width = this.$refs.rtspPlayer.videoWidth
-    }
   }
 }
 </script>
