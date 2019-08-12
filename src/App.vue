@@ -74,7 +74,7 @@
 
 <script>
 import player from './components/AppPlayer.vue'
-import logConsole from 'vue-logconsole'
+
 export default {
   name: 'app',
   components: {
