@@ -131,8 +131,8 @@ export default {
     }
 
     if (this.serverList.length && !this.$store.state.activeRTSPUrl && !this.rtspSrc) {
-      this.$store.state.activeRTSPUrl = this.serverList[0]
-      this.rtspSrc = this.serverList[0]
+      this.$store.state.activeRTSPUrl = this.serverList[this.serverList.length-1]
+      this.rtspSrc = this.serverList[this.serverList.length-1]
     }
   },
 
@@ -150,31 +150,17 @@ export default {
     justify-content: center
   }
   .player{
-    display: flex;
-    width: 100%;
-    height: 100%;
-    min-height: 350px;
-    background: #000;
-    padding: 0;
-    margin: 30px 0 0 0;
     position: relative;
-    &:before {
-      content:'';
-      display: block;
-      padding-top: 50%;
-    }
+    padding-bottom: 56.25%; /* 16:9 */
+    padding-top: 25px;
+    height: 0;
+    background: #000;
     video {
-      bottom: 0;
-      left: -1px;
       position: absolute;
-      right: 0;
       top: 0;
+      left: 0;
       width: 100%;
-      width: 100%;
-      padding: 0;
-      margin: 0;
-      min-height: inherit;
-      max-height: 100%;
+      height: 100%;
     }
   }
   .player-url{
