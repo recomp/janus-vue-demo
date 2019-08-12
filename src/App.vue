@@ -2,37 +2,35 @@
   <div id="app">
     <div class="container">
       <div class="columns">
-        <div class="column"></div>
         <div class="column is-half">
           <player
             ref="player"
+            :class="{'is-playing' : isPlaying}"
             :rtspSrc="rtspSrc"/>
-        <form>
-          <b-field>
-            <b-autocomplete
-              class="player-url"
-              v-model="rtspSrc"
-              title="Для ввода адреса, остановите воспроизведение"
-              :data="serverList"
-              @keyup.enter.native="isPlaying ? $refs.player.stopStream() : $refs.player.startStream()"
-              placeholder="rtsp://..."
-              icon-pack="fas"
-              icon="video"
-              @select="option => selected = option">
-            </b-autocomplete>
-            <p class="control">
-              <b-button
-                v-if="$refs.player"
-                @click="isPlaying ? $refs.player.stopStream() : $refs.player.startStream()"
+          <form>
+            <b-field>
+              <b-autocomplete
+                class="player-url"
+                v-model="rtspSrc"
+                title="Для ввода адреса, остановите воспроизведение"
+                :data="serverList"
+                @keyup.enter.native="isPlaying ? $refs.player.stopStream() : $refs.player.startStream()"
+                placeholder="rtsp://..."
                 icon-pack="fas"
-                :icon-right="isPlaying ? 'stop' :  'play'"
-                :type="isPlaying ? 'is-dark' : 'is-success'" />
-            </p>
-          </b-field>
-        </form>
+                icon="video"
+                @select="option => selected = option">
+              </b-autocomplete>
+              <p class="control">
+                <b-button
+                  v-if="$refs.player"
+                  @click="isPlaying ? $refs.player.stopStream() : $refs.player.startStream()"
+                  icon-pack="fas"
+                  :icon-right="isPlaying ? 'stop' :  'play'"
+                  :type="isPlaying ? 'is-dark' : 'is-success'" />
+              </p>
+            </b-field>
+          </form>
 
-        </div>
-        <div class="column">
         </div>
       </div>
 
@@ -144,14 +142,20 @@ export default {
 <style lang="scss">
   @import "bulma/sass/utilities/initial-variables.sass";
   @import "bulma/sass/utilities/derived-variables.sass";
+  .columns{
+    justify-content: center
+  }
   .player{
-    display: block;
+    display: flex;
     width: 100%;
     height: auto;
     min-height: 420px;
     background: gray;
     padding: 0;
     margin: 0;
+    &.is-playing {
+      background: transparent;
+    }
   }
   .player-url{
     width: 100%;

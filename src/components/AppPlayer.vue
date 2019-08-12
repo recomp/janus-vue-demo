@@ -1,5 +1,5 @@
 <template>
-  <div class="player">
+  <div class="player" :style="videoStyle">
     <video
       width="100%"
       id="rtsp_player"
@@ -28,6 +28,9 @@ export default {
     isLoading: false,
     janusServerUrl: 'camproxy.ru',
     player: null,
+    videoStyle: {
+      height: 0
+    },
     paused: false,
     streaming: null,
     janus: null,
@@ -186,7 +189,6 @@ export default {
         }});
     },
     startStream(){
-      console.log('STARTSTREAM()');
       if(this.rtspSrc === undefined || this.rtspSrc === null || !this.rtspSrc) {
         this.error("Enter source MRL")
         return;
@@ -195,6 +197,7 @@ export default {
       let data = { "request": "watch", mrl: this.rtspSrc };
       this.streaming.send({"message": data});
       this.$store.commit('SET_RTSP_SERVER_LIST', this.rtspSrc)
+      this.setVideoStyle()
     },
     stopStream() {
       console.log('STOPSTREAM()');
@@ -224,6 +227,11 @@ export default {
     debug(message){
       Janus.debug(message);
       this.console = {message: message, type: 'debug'}
+    },
+    setVideoStyle(){
+      let vm = this
+      let height = this.$refs.rtspPlayer.videoHeight
+      let width = this.$refs.rtspPlayer.videoWidth
     }
   }
 }
