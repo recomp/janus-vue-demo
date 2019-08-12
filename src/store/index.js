@@ -37,9 +37,8 @@ export default new Vuex.Store({
     },
     SET_RTSP_SERVER_LIST(state, server) {
       state.activeRTSPUrl = server
-      if (!state.RTSPServerList.includes(server)) {
-        state.RTSPServerList.push(server)
-      }
+      state.RTSPServerList.push(server)
+
     },
     CLEAR_RTSP_SERVER_LIST(state) {
       state.RTSPServerList = []
