@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <div class="container">
-      <h1 class="title">janus-gstreamer-plugin</h1>
       <div class="columns">
         <div class="column"></div>
         <div class="column is-half">
@@ -10,16 +9,6 @@
             :rtspSrc="rtspSrc"/>
         <form>
           <b-field>
-<!--             <b-input
-              class="player-url"
-              placeholder="rtsp://..."
-              autocomplete="on"
-              type="text"
-              icon-pack="fas"
-              v-model="rtspSrc"
-              icon="video">
-            </b-input> -->
-
               <b-autocomplete
                 class="player-url"
                 v-model="rtspSrc"
@@ -46,7 +35,9 @@
       </div>
 
 
-      <div class="columns">
+      <div
+        v-if="$route.query.debug"
+        class="columns">
         <div class="column logs-panel" ref="consolePanel">
           <b-tabs
             expanded
@@ -100,7 +91,6 @@ export default {
       info: 'info'
     },
     selected: null
-    // rtspSrc: 'rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov',
   }),
   watch:{
     console(val){

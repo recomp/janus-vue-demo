@@ -16,6 +16,7 @@
     "sass-loader": "^7.1.0",
     "vue": "^2.6.10",
     "vue-logconsole": "^0.1.6",
+    "vue-router": "^3.1.2",
     "vue2-storage": "^4.0.5",
     "vuex": "^3.1.1",
     "vuex-persist": "^2.0.1",
