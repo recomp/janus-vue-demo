@@ -156,7 +156,7 @@ export default {
     min-height: 350px;
     background: #000;
     padding: 0;
-    margin: 0;
+    margin: 30px 0 0 0;
     position: relative;
     &:before {
       content:'';
