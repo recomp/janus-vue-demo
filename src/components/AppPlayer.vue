@@ -26,7 +26,6 @@ export default {
   },
   data: () => ({
     isLoading: false,
-    isPlaying: false,
     janusServerUrl: 'camproxy.ru',
     player: null,
     paused: false,
@@ -77,6 +76,14 @@ export default {
       let url = this.ports[this.rtspHost][this.isSupportWebsocket ? `socket` : this.rtspHost].url
       return url.replace('%s', this.janusServerUrl)
     },
+    isPlaying:{
+      get(){
+        return this.$store.state.isPlaying
+      },
+      set(value){
+        this.$store.commit('SET_PLAYING_STATE', value)
+      }
+    },
     console:{
       get(){
         return this.$store.state.logs
@@ -121,8 +128,6 @@ export default {
                   success: function(pluginHandle) {
                     vm.streaming = pluginHandle;
                     vm.log("Plugin attached! (" + vm.streaming.getPlugin() + ", id=" + vm.streaming.getId() + ")");
-
-                    vm.startStream()
                   },
                   error: function(error) {
                     vm.error("-- Error attaching plugin...:", 'error')
@@ -183,12 +188,13 @@ export default {
     startStream(){
       console.log('STARTSTREAM()');
       if(this.rtspSrc === undefined || this.rtspSrc === null || !this.rtspSrc) {
-        this.error("Enter source MRL", error)
+        this.error("Enter source MRL")
         return;
       }
       this.isPlaying = true
       let data = { "request": "watch", mrl: this.rtspSrc };
       this.streaming.send({"message": data});
+      this.$store.commit('SET_RTSP_SERVER_LIST', this.rtspSrc)
     },
     stopStream() {
       console.log('STOPSTREAM()');

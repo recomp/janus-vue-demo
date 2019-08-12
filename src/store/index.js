@@ -11,6 +11,7 @@ const vuexLocal = new VuexPersistence({
 
 export default new Vuex.Store({
   state: {
+    isPlaying: false,
     logs: {
       info: [],
       error: [],
@@ -31,13 +32,16 @@ export default new Vuex.Store({
     SET_LOG(state, value) {
       state.logs[value.type].push({message: value.message, type: value.type})
     },
+    SET_PLAYING_STATE(state, value) {
+      state.isPlaying = value
+    },
     SET_RTSP_SERVER_LIST(state, server) {
       state.activeRTSPUrl = server
       if (!state.RTSPServerList.includes(server)) {
         state.RTSPServerList.push(server)
       }
     },
-    CLEAR_RTSP_SERVER_LIST(state, server) {
+    CLEAR_RTSP_SERVER_LIST(state) {
       state.RTSPServerList = []
     },
     CLEAR_LOGS(state) {

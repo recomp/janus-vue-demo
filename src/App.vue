@@ -9,22 +9,24 @@
             :rtspSrc="rtspSrc"/>
         <form>
           <b-field>
-              <b-autocomplete
-                class="player-url"
-                v-model="rtspSrc"
-                :data="serverList"
-                placeholder="rtsp://..."
-                icon-pack="fas"
-                icon="video"
-                @select="option => selected = option">
-              </b-autocomplete>
+            <b-autocomplete
+              class="player-url"
+              v-model="rtspSrc"
+              :disabled="isPlaying"
+              title="Для ввода адреса, остановите воспроизведение"
+              :data="serverList"
+              placeholder="rtsp://..."
+              icon-pack="fas"
+              icon="video"
+              @select="option => selected = option">
+            </b-autocomplete>
             <p class="control">
               <b-button
                 v-if="$refs.player"
-                @click="$refs.player.isPlaying ? $refs.player.stopStream() : $refs.player.startStream()"
+                @click="isPlaying ? $refs.player.stopStream() : $refs.player.startStream()"
                 icon-pack="fas"
-                :icon-right="$refs.player.isPlaying ? 'stop' :  'play'"
-                :type="$refs.player.isPlaying ? 'is-dark' : 'is-success'" />
+                :icon-right="isPlaying ? 'stop' :  'play'"
+                :type="isPlaying ? 'is-dark' : 'is-success'" />
             </p>
           </b-field>
         </form>
@@ -82,8 +84,8 @@ export default {
   },
   data: () => ({
     appConsole: [],
-    // rtspSrc: 'rtsp://camproxy.ru:8554/bars',
     showLogs: false,
+    rtspSrc: "",
     logTabsActive: 0,
     logsTypeClasses: {
       debug: 'dark',
@@ -98,12 +100,12 @@ export default {
     }
   },
   computed: {
-    rtspSrc: {
+    isPlaying:{
       get(){
-        return this.$store.state.activeRTSPUrl
+        return this.$store.state.isPlaying
       },
       set(value){
-        this.$store.commit('SET_RTSP_SERVER_LIST', value)
+        this.$store.commit('SET_PLAYING_STATE', value)
       }
     },
     serverList:{
@@ -123,6 +125,12 @@ export default {
       }
     }
   },
+  mounted() {
+    if (this.$route.query.clear) {
+      this.$store.commit('CLEAR_RTSP_SERVER_LIST')
+    }
+  },
+
   methods: {
 
   }

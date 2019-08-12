@@ -27,3 +27,9 @@ yarn run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+show debug panel:
+add get parametr to url: `?debug=true`
+
+clear url servers list:
+add get parametr to url: `?clear=true`
