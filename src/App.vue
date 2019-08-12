@@ -12,9 +12,9 @@
             <b-autocomplete
               class="player-url"
               v-model="rtspSrc"
-              :disabled="isPlaying"
               title="Для ввода адреса, остановите воспроизведение"
               :data="serverList"
+              @keyup.enter.native="isPlaying ? $refs.player.stopStream() : $refs.player.startStream()"
               placeholder="rtsp://..."
               icon-pack="fas"
               icon="video"
@@ -128,6 +128,11 @@ export default {
   mounted() {
     if (this.$route.query.clear) {
       this.$store.commit('CLEAR_RTSP_SERVER_LIST')
+    }
+
+    if (this.serverList.length && !this.$store.state.activeRTSPUrl && !this.rtspSrc) {
+      this.$store.state.activeRTSPUrl = this.serverList[0]
+      this.rtspSrc = this.serverList[0]
     }
   },
 

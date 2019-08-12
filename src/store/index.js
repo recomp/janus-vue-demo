@@ -17,7 +17,7 @@ export default new Vuex.Store({
       error: [],
       debug: []
     },
-    activeRTSPUrl: 'rtsp://camproxy.ru:8554/bars',
+    activeRTSPUrl: '',
     RTSPServerList: []
   },
   getters: {
